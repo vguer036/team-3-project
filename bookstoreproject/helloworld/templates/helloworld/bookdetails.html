@@ -1,0 +1,39 @@
+
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+		<div class="w3-container">
+		<div class="w3-bar w3-blue">
+		  <a href="http://127.0.0.1:8000/" class="w3-bar-item w3-button">Home</a>
+		  <a href="http://127.0.0.1:8000/admin" class="w3-bar-item w3-button">All Books</a>
+		  <a href="http://127.0.0.1:8000/admin" class="w3-bar-item w3-button">Wish List</a>
+		  <a href="http://127.0.0.1:8000/admin" class="w3-bar-item w3-button">Shopping Cart</a>
+		</div>
+	<title style="font-family:verdana;">BookDetails</title>
+
+
+		<!-- loop begin -->
+	{% for bookdetails in all_bookdetails %}
+
+	<H1 style="font-family:verdana; color:navy;text-align:center">{{bookdetails.title}}</H1>
+		<p>{{bookdetails.author}}</p>
+
+
+		
+
+			<H3 style="font-family:verdana;text-align:center">{{bookdetails.title}}</H3>
+			<br>
+			<div style="width:100%;text-align:center;">
+			<a href="https://www.thriftbooks.com/a/harper-lee/198949/">{{bookdetails.author}}</a>
+			<br><br>
+
+			<a><img src="{{bookdetails.coverphotourl}}" border="0" alt="Image and video hosting by TinyPic"></a>
+
+			</div>
+
+
+			<p style="font-family:verdana;text-align:center">{{bookdetails.description}}</p>
+			<p style="font-family:verdana;text-align:center">{{bookdetails.genre}}</p>
+			<p style="font-family:verdana;text-align:center">{{bookdetails.publisherinfo}}</p>
+			<p style="font-family:verdana;text-align:center">Rating system:</p>
+	
+	{% endfor %}
+
