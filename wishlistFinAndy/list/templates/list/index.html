@@ -1,0 +1,29 @@
+{% extends 'list/base.html' %}
+
+{% block body %}
+
+
+    <li class="">
+        <a href="{% url 'list:wishlist-add' %}">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp; Add Wishlist
+        </a>
+    </li>
+    <ul>
+        {% for wishlist in object_list %}
+            <ul>
+                <a href="{% url 'list:detail' wishlist.id %}">{{ wishlist.wishlist_title }}</a>
+                <form action="{% url 'list:wishlist-delete' wishlist.id %}" method="post" style="display: inline;">
+                    {% csrf_token %}
+                    <input type="hidden" name="wishlist_id" value="{{ wishlist.id }}"/>
+                    <button type="submit" class="top-menu pull-left" class="btn btn-default btn-sm">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </button>
+
+                </form>
+            </ul>
+
+
+        {% endfor %}
+    </ul>
+
+{% endblock %}

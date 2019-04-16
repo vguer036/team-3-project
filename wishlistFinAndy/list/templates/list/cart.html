@@ -1,0 +1,9 @@
+<form action="{% url 'remove' %}" method="POST">
+    {% csrf_token %}
+    {% for item in all_items %}
+        <button type="submit" id="item{{ forloop.counter }}" name="item" value="{{ item.pk }}"> BUTTON</button>
+        <label for="item{{ forloop.counter }}">
+            {{ item.productId }}
+        </label><br>
+    {% endfor %}
+</form>

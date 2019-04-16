@@ -1,0 +1,56 @@
+{% load staticfiles %}
+<link rel=stylesheet" type="text/css" href="{% static 'list/style.css' %}"/>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Wishlists</title>
+</head>
+<body>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <!--Logo-->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topNavBar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{% url 'list:bookdetails' %}">
+                Books
+            </a>
+            <a class="navbar-brand" href="{% url 'list:shoppingcart' %}">
+                Cart
+            </a>
+            <a class="navbar-brand" href="{% url 'list:index' %}">
+                Wishlists
+            </a>
+        </div>
+
+        <!-- items -->
+        <div class="collapse navbar-collapse" id="topNavBar">
+            <ul class="nav navbar-nav">
+
+                <!--
+               {% for wishlist in object_list %}
+               <li class="">
+                   <a href="{% url 'list:detail' wishlist.id %}">
+                       <span aria-hidden="true"></span>&nbsp; {{wishlist.wishlist_title}}
+                   </a>
+               </li>
+                {% endfor %}
+                -->
+
+            </ul>
+
+
+        </div>
+    </div>
+</nav>
+{% block body %}
+{% endblock %}
+</body>
+</html>

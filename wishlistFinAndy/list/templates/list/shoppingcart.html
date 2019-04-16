@@ -1,0 +1,166 @@
+{% extends 'list/base.html' %}
+<!-- loop begin -->
+{% block body %}
+
+    <head>
+        <title>Shopping Cart</title>
+
+        <style type="text/css">
+            body {
+                background-color: azure
+            }
+
+            .container {
+                width: 80%;
+                margin: auto;
+            }
+
+            table {
+                table-layout: fixed;
+                width: 100%;
+                border-collapse: collapse;
+            }
+
+            tr:hover {
+                background-color: #f5f5f5;
+            }
+
+            td, th {
+                padding: 15px;
+                text-align: center;
+                vertical-align: top;
+                border-bottom: 2px solid #ddd;
+
+            }
+
+            img {
+                object-fit: contain;
+                width: 200px;
+                height: 150px;
+            }
+
+            .Checkout {
+                background-color: coral;
+                border: 2px solid black;
+                color: black;
+                padding: 15px 32px;
+                text-align: center;
+                font-size: 16px;
+                cursor: pointer;
+                float: right;
+            }
+
+            hr {
+                border-top: 2px solid #ddd;
+                margin-top: 6em;
+            }
+
+            .link_button {
+                background: none !important;
+                color: blue;
+                border: none;
+                padding: 0 !important;
+                font: inherit;
+                /*border is optional*/
+                border-bottom: 1px solid blue;
+                cursor: pointer;
+            }
+
+        </style>
+    </head>
+    <body>
+    <div class="container">
+        <table class="scart">
+            <thead>
+            <tr>
+                <th> Shopping Cart</th>
+                <th></th>
+                <th>Price</th>
+                <th>Quantity</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in all_items %}
+                <tr>
+                    <td>
+                        <img src="{{ item.productId.coverphotourl }}" alt="{{ item.productId.title }}">
+                    </td>
+                    <td>
+                        <p>
+                        <ul>
+                            <b>{{ item.productId.title }}</b>
+                            <br><br><br>
+                            {{ item.productId.author }}
+
+                        </ul>
+                        </p>
+                    </td>
+                    <td>
+                        ${{ item.productId.price }} <br><br><br><br><br><br><br>
+                        <form action="{% url 'list:removesc' %}" method="POST">
+                            {% csrf_token %}
+                            <button class="link_button" name="item" value="{{ item.pk }}"> remove</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="{% url 'list:changequantity' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="number" name="quantity" min="1" max="10" value= {{ item.quantity }}>
+                            <button name="item" value="{{ item.pk }}"> save</button>
+                        </form>
+                        <br><br><br><br><br><br>
+                        <form action="{% url 'list:saveforlater' %}" method="POST">
+                            {% csrf_token %}
+                            <button class="link_button" name="item" value="{{ item.pk }}"> Save for Later</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <h2 align="right">Subtotal ({{ totalItems }} item(s)) : ${{ total }}</h2>
+        <button class="Checkout">Checkout>></button>
+        <hr>
+
+        <table>
+            <thead>
+            <tr>
+                <th>Saved for Later ({{ totalsaveditems }} items(s))</th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in saved_items %}
+                <tr>
+                    <td>
+                        <a><img src="{{ item.productId.coverphotourl }}" border="0"
+                                alt="{{ item.productId.title }}"></a>
+                    </td>
+                    <td>
+                        Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                        Quam quis voluptates nam cumque? Deserunt dolorum magnam nam maiores neque voluptatem,
+                        dolores est pariatur, sunt iusto quos iste consequatur sint officia!
+                    </td>
+                    <td>
+                        ${{ item.productId.price }}<br><br><br><br><br><br><br>
+                        <form action="{% url 'list:removesfl' %}" method="POST">
+                            {% csrf_token %}
+                            <button class="link_button" name="item" value="{{ item.pk }}"> remove</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="{% url 'list:addtocart' %}" method="POST">
+                            {% csrf_token %}
+                            <button class="link_button" name="item" value="{{ item.pk }}"> Add to Cart</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    </body>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'list/base.html' %}
+
+{% block body %}
+
+    <h1>{{ wishlist.wishlist_title }}</h1>
+    <div>
+        <a href="{% url 'list:create_book' wishlist.id %}">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp; Add new book
+        </a>
+    </div>
+    {% for book in wishlist.book_set.all %}
+        <form action="{% url 'list:delete_book' wishlist.id book.id %}" method="post" style="display: inline;">
+            {% csrf_token %}
+            <input type="hidden" name="book_id" value="{{ book.id }}"/>
+            <button type="submit" class="btn btn-default btn-sm">
+                <span class="glyphicon glyphicon-trash"></span>&nbsp; Delete
+            </button>
+        </form>
+        {{ book.book_title }}
+        <br>
+    {% endfor %}
+
+
+{% endblock %}
